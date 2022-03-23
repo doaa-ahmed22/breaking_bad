@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
-
-const newsScreen = '/';
+const characterScreen = '/';
 const detailsScreen = '/details_Screen';
+const baseUrl = 'https://www.breakingbadapi.com/api/';
