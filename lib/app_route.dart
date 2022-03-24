@@ -6,6 +6,7 @@ import 'package:news_app/pressentation_layer/screens/character_screen.dart';
 import 'package:news_app/pressentation_layer/screens/details_screen.dart';
 
 import 'constants/strings.dart';
+import 'data_layer/models/characters.dart';
 import 'data_layer/web_services/characters_web_services.dart';
 
 class AppRouter {
@@ -27,8 +28,11 @@ class AppRouter {
           ),
         );
       case detailsScreen:
+        final character = settings.arguments as Character;
         return MaterialPageRoute(
-          builder: (_) => DetailsScreen(),
+          builder: (_) => DetailsScreen(
+            character: character,
+          ),
         );
     }
   }

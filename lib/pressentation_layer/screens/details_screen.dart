@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/constants/colors.dart';
+import 'package:news_app/data_layer/models/characters.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({Key? key}) : super(key: key);
+  final Character character;
+
+  DetailsScreen({required this.character});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -10,8 +14,19 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('details screen'),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 600,
+            //TODO:UNDERSTAND
+            backgroundColor: MyColor.myGreyColor,
+            pinned: true,
+            stretch: true,
+            flexibleSpace: FlexibleSpaceBar(),
+          ),
+        ],
+      ),
     );
   }
 }
