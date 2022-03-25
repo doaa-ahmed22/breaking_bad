@@ -25,3 +25,11 @@ class Character {
     betterCallSaulAppearance = json['better_call_saul_appearance'];
   }
 }
+
+class Quote {
+  late String quote;
+
+  Quote.fromJson(Map<String, dynamic> json) {
+    quote = json['quote'];
+  }
+}

@@ -10,23 +10,8 @@ class CharacterLoaded extends CharacterState {
   CharacterLoaded(this.characters);
 }
 
-//
-// part of 'characters_cubit.dart';
-//
-// @immutable
-// abstract class CharactersState {}
-//
-// class CharactersInitial extends CharactersState {}
-//
-//
-// class CharactersLoaded extends CharactersState {
-//   final List<Character> characters;
-//
-//   CharactersLoaded(this.characters);
-// }
-//
-// class QuotesLoaded extends CharactersState {
-//   final List<Quote> quotes;
-//
-//   QuotesLoaded(this.quotes);
-// }
+class QuoteLoaded extends CharacterState {
+  final List<Quote> quotes;
+
+  QuoteLoaded(this.quotes);
+}
