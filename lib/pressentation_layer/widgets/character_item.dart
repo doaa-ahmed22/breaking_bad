@@ -20,7 +20,7 @@ class CharacterItem extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, detailsScreen);
+          Navigator.pushNamed(context, detailsScreen, arguments: character);
         },
         child: GridTile(
           footer: Hero(
