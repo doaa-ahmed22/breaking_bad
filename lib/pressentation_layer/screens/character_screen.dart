@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/business_layer/cubit/cubit.dart';
 import 'package:news_app/business_layer/cubit/states.dart';
 import 'package:news_app/constants/colors.dart';
-import 'package:news_app/constants/strings.dart';
+
 import 'package:news_app/data_layer/models/characters.dart';
 import 'package:news_app/pressentation_layer/widgets/character_item.dart';
 

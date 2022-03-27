@@ -4,6 +4,7 @@ import 'package:news_app/business_layer/cubit/cubit.dart';
 import 'package:news_app/data_layer/repository/characters_repository.dart';
 import 'package:news_app/pressentation_layer/screens/character_screen.dart';
 import 'package:news_app/pressentation_layer/screens/details_screen.dart';
+import 'package:news_app/pressentation_layer/screens/on_boarding.dart';
 
 import 'constants/strings.dart';
 import 'data_layer/models/characters.dart';
@@ -20,6 +21,8 @@ class AppRouter {
 
   Route? appRouting(RouteSettings settings) {
     switch (settings.name) {
+      case on_boarding:
+        return MaterialPageRoute(builder: (_) => OnBoarding());
       case characterScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
