@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:news_app/business_layer/cubit/cubit.dart';
 import 'package:news_app/business_layer/cubit/states.dart';
 import 'package:news_app/constants/colors.dart';
+import 'package:news_app/constants/strings.dart';
 
 import 'package:news_app/data_layer/models/characters.dart';
 import 'package:news_app/pressentation_layer/widgets/character_item.dart';
+
+import 'details_screen.dart';
 
 class CharacterScreen extends StatefulWidget {
   const CharacterScreen({Key? key}) : super(key: key);
@@ -43,44 +47,79 @@ class _CharacterScreenState extends State<CharacterScreen> {
               )
             : Container(),
       ),
-      body: BlocBuilder<CharacterCubit, CharacterState>(
-        builder: (context, state) {
-          if (state is CharacterLoaded) {
-            allCharacters = (state).characters;
-            return Container(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 2 / 3,
-                          crossAxisSpacing: 1,
-                          mainAxisSpacing: 1),
-                      //TODO:REMOVE
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemCount: _textEditingController.text.isEmpty
-                          ? allCharacters.length
-                          : searchedItem.length,
-                      itemBuilder: (context, index) => CharacterItem(
-                          character: _textEditingController.text.isEmpty
-                              ? allCharacters[index]
-                              : searchedItem[index]),
+      body: OfflineBuilder(
+        connectivityBuilder: (
+          BuildContext context,
+          ConnectivityResult connectivity,
+          Widget child,
+        ) {
+          final bool connected = connectivity != ConnectivityResult.none;
+          if (connected) {
+            return BlocBuilder<CharacterCubit, CharacterState>(
+              builder: (context, state) {
+                if (state is CharacterLoaded) {
+                  allCharacters = (state).characters;
+                  return Container(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    childAspectRatio: 2 / 3,
+                                    crossAxisSpacing: 1,
+                                    mainAxisSpacing: 1),
+                            //TODO:REMOVE
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            padding: EdgeInsets.zero,
+                            itemCount: _textEditingController.text.isEmpty
+                                ? allCharacters.length
+                                : searchedItem.length,
+                            itemBuilder: (context, index) => CharacterItem(
+                                character: _textEditingController.text.isEmpty
+                                    ? allCharacters[index]
+                                    : searchedItem[index]),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: MyColor.myYellowColor,
+                    ),
+                  );
+                }
+              },
             );
           } else {
-            return Center(
-              child: CircularProgressIndicator(
-                color: MyColor.myYellowColor,
+            return Container(
+              color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Can\'t connect ..... check your internet',
+                    style: style,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Image(
+                    image: AssetImage('assets/images/no_internet.png'),
+                  ),
+                ],
               ),
             );
           }
         },
+        child: showProgressIndicator(),
       ),
     );
   }
